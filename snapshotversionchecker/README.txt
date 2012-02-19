@@ -23,7 +23,11 @@ The Plugin is translatable with the gettext framework. If you want to translate 
 
 Rui Batista <ruiandrebatista@gmail.com>
 
+
 == ChangeLog ==
+
+Version 1.2
+* Using custom webservice to retrieve information.
 
 Version 1.1:
 * The plugin redirects the user to the snapshot download link instead of the snapshots webpage. Type of snapshot (installer or porttable) is deduced according to the currently running copy
@@ -32,4 +36,7 @@ Version 1.1:
 Version 1.0:
 * Initial Release.
 
+== Contributors ==
 
+Nicolás Garay Tapia <mk360@ug.uchile.cl>
+* Spanish Translation.
