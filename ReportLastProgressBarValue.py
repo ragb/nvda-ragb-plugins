@@ -29,4 +29,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		nextHandler()
 	script_reportLastProgressBarValue.__doc__=_("Informa o valor actual da barra de progresso activa") #This description in a docstring form will be spoken while input help is enabled
 	
-	__gestures = {"kb:NVDA+shift+u" : "reportLastProgressBarValue"}
+	__gestures = {
+	"kb[desktop]:NVDA+shift+u" : "reportLastProgressBarValue",
+	"kb[laptop]:nvda+control+u" : "reportLastProgressBarValue"
+	}
