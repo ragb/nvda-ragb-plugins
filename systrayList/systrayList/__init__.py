@@ -21,7 +21,10 @@ import gui
 # Make gettext available in this module using a different domain
 _basePath = os.path.dirname(os.path.abspath(__file__))
 _localedir = os.path.join(_basePath, "locale")
-_ = gettext.translation('systrayList', localedir=_localedir, languages=[languageHandler.curLang]).ugettext
+try:
+	_ = gettext.translation('systrayList', localedir=_localedir, languages=[languageHandler.curLang]).ugettext
+except IOError:
+	_ = lambda x : x
 
 def mouseEvents(location, *events):
 	x,y = int (location[0]+location[2]/2), int (location[1]+location[3]/2)

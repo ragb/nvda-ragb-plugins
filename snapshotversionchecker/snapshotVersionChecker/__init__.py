@@ -1,10 +1,11 @@
 # snapshotVersionChecker.py
-# Version 1.1
+# Version 1.2
 # NVDA plugin to check if we are running the last available snapshot.
-# copyright (c) 2011 - Rui Batista <ruiandrebatista@gmail.com>
+# copyright (c) 2011-2012 - Rui Batista <ruiandrebatista@gmail.com>
 #
 # This code is subject to the same terms as the NVDA Screen Reader
 import gettext
+import json
 import os.path
 import re
 import threading
@@ -22,17 +23,16 @@ import ui
 import versionInfo
 
 __author__ = "Rui Batista"
-__version__ = "1.1"
+__version__ = "1.2"
 
 # Make gettext available in this module using a different domain
 _basePath = os.path.dirname(os.path.abspath(__file__))
-_localedir = os.path.join(_basePath, "locale")
-_ = gettext.translation('snapshotVersionChecker', localedir=_localedir, languages=[languageHandler.curLang]).ugettext
+try:
+	_localedir = os.path.join(_basePath, "locale")
+	_ = gettext.translation('snapshotVersionChecker', localedir=_localedir, languages=[languageHandler.curLang]).ugettext
+except IOError:
+	_ = lambda x : x
 
-_snapshot_url_template = "http://www.nvda-project.org/snapshots/%(branch)s/nvda_snapshot_%(branch)s-%(revision)d_%(type)s.exe"
-
-def _make_snapshot_url(branch, revision, type):
-	return _snapshot_url_template % {'branch' : branch, 'revision' : revision, 'type' : type}
 
 def _nvda_copy_type():
 	return "installer" if config.isInstalledCopy() else "portable"
@@ -68,10 +68,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self._thread.start()
 
 	def _update_next_version(self):
-		template = "http://www.nvda-project.org/snapshots/%s/.last_snapshot"
+		template = "http://pt.nvda-community.org/ws/LastSnapshot/%s"
 		url = template % self._branch
 		log.debug("Reading latest version from %s", url)
-		self._next_version = int(urllib.urlopen(url).read())
+		self._info = json.load(urllib.urlopen(url))
+		self._next_version = self._info['revision']
 		if self._next_version <= self._current_version:
 			log.info("Snapshot up to date at revision %d", self._current_version)
 		else:
@@ -85,6 +86,6 @@ Do you want to download the last snapshot from the web page?
 """) % {"branch": self._branch, "next" : self._next_version, "current" : self._current_version},
 		caption=_("New snapshot Available."), style=wx.YES_NO|wx.ICON_WARNING) == wx.YES:
 			ui.message(_("Opening Snapshots web page."))
-			url = _make_snapshot_url(self._branch, self._next_version, _nvda_copy_type())
+			url = self._info[_nvda_copy_type()]
 			log.debug("Openning browser: %s.", url)
 			webbrowser.open(url)
