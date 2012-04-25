@@ -25,7 +25,7 @@ msgstr "Lista da Área de Notificação"
 
 #: __init__.py:97
 msgid "Icons on the System Tray:"
-msgstr "Icons na Área de Notificação:"
+msgstr "Ícones na Área de Notificação:"
 
 #: __init__.py:106
 msgid "&Left Click"

@@ -1,6 +1,6 @@
 = systrayList NVDA Plugin =
 
-Version: 1.1
+Version: 1.2
 Authors: Rui Fontes and Rui Batista
 
 This plugin makes possible to read and activate icons on the system tray within a list box for easy access to those items. With the plugin installed press NVDA+f11 for this dialog to pop-up.
@@ -28,6 +28,9 @@ If you want to translate the plugin for your language please drop a line to
 Rui Batista <ruiandrebatista@gmail.com>
 
 == Change Log ==
+
+Version 1.2 - 2012-04.25
+* Spanish and german translations. thanks to all that contributed.
 
 Version 1.1 - 2012-03-20
 * Corrected bug that was making impossible to use the plugin when a gettext translation is not available
