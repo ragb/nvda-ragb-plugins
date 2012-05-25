@@ -16,15 +16,8 @@ import NVDAObjects
 from api import getFocusObject
 import winUser
 import gui
-
-
-# Make gettext available in this module using a different domain
-_basePath = os.path.dirname(os.path.abspath(__file__))
-_localedir = os.path.join(_basePath, "locale")
-try:
-	_ = gettext.translation('systrayList', localedir=_localedir, languages=[languageHandler.curLang]).ugettext
-except IOError:
-	_ = lambda x : x
+import addonHandler
+addonHandler.initTranslation()
 
 def mouseEvents(location, *events):
 	x,y = int (location[0]+location[2]/2), int (location[1]+location[3]/2)
