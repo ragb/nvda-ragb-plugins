@@ -1,0 +1,3 @@
+summary = Revisão virtual
+description = Revisão simples do texto da janela actual.
+long_description = para rever o texto da janela actual num diálogo simples de navegar com as setas direcionais pressione nvda+alt+w.

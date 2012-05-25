@@ -1,5 +1,5 @@
 # Virtual Revision NVDA plugin
-# Version 0.1alpha2
+# Version 0.2
 #Copyright (C) 2012 Rui Batista <ruiandrebatista@gmail.com>
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
@@ -9,6 +9,10 @@ import wx
 import api
 import globalPluginHandler
 import gui
+import addonHandler
+addonHandler.initTranslation()
+
+
 
 virtualWindowViewer = None
 
@@ -26,6 +30,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			text = root.displayText.replace("\0", ' ')
 			activate()
 			virtualWindowViewer.outputCtrl.SetValue(text)
+	script_virtualWindowReview.__doc__ = _("Opens a dialog containing the text of the currently focused window for easy review.")
 
 	__gestures = {"kb:nvda+control+w" : "virtualWindowReview"}
 
