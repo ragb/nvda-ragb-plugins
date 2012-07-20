@@ -11,6 +11,7 @@ import languageHandler
 import os.path
 import wx
 import globalPluginHandler,IAccessibleHandler
+import globalVars
 import scriptHandler
 import NVDAObjects
 from api import getFocusObject
@@ -43,6 +44,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self._systrayListDialog.Destroy()
 
 	def script_createSystrayList(self, gesture):
+		if globalVars.appArgs.secure:
+			return
 		# Create a list of (obj.name, obj.location)
 		# from the systray.
 		# This runs through the window hierarchy finding 
