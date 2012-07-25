@@ -1,6 +1,6 @@
 = Virtual Revision Plugin for NVDA =
 
-Version: 1.0
+Version: 1.1
 Date: 2012-03-03
 Licence: GPL version 2.
 Author: Rui Batista
