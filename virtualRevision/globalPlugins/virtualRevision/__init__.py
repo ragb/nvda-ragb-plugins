@@ -9,6 +9,7 @@ import wx
 import api
 import globalPluginHandler
 import gui
+import textInfos
 import addonHandler
 addonHandler.initTranslation()
 
@@ -21,6 +22,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_virtualWindowReview(self, nextHandler):
 		# Find the first focus ansestor that have any display text, according to the display model
 		# This must be the root application window, or something close to that.
+		text = None
 		root = None
 		for ancestor in api.getFocusAncestors():
 			if ancestor.appModule and ancestor.displayText:
@@ -28,6 +30,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				break
 		if root:
 			text = root.displayText.replace("\0", ' ')
+		obj = api.getFocusObject()
+		if obj.windowClassName == u'ConsoleWindowClass':
+			info = obj.makeTextInfo(textInfos.POSITION_FIRST)
+			info.expand(textInfos.UNIT_STORY)
+			text = info.clipboardText
+		if text:
 			activate()
 			virtualWindowViewer.outputCtrl.SetValue(text)
 	script_virtualWindowReview.__doc__ = _("Opens a dialog containing the text of the currently focused window for easy review.")
